@@ -1,0 +1,40 @@
+Blocks    :- 100, 450, 250, 300, 600
+Processes :- 212, 317, 172, 426
+              1    2    3    4    5
+First Fit:
+    P1 is inserted in B2 creating new Block B6 of size (450 - 212) = 233
+    B :- 100, [212], 233, 250, 300, 600
+          1     2     6    3    4    5
+    P2 is inserted in B5 creating new Block B7 of size (600 - 317) = 283
+    B :- 100, [212], 233, 250, 300, [317], 283
+          1     2     6    3    4     5    7
+    P3 is inserted in B6 creating new Block B8 of size (233 - 172) = 61
+    B :- 100, [212], [172], 61, 250, 300, [317], 283
+          1     2      6     8   3    4     5    7q
+    P4 should wait, it can't be allocated as ther is no free block
+
+Best Fit:
+    P1 is inserted in B3 creating new Block B6 of size (250 - 212) = 33
+    B:- 100, 450, [212], 33, 300, 600
+         1    2     3     6   4    5
+    P2 is inserted in B2 creating new Block B7 of size (450 - 317) = 133
+    B:- 100, [317], 133, [212], 33, 300, 600
+         1    2      7     3     6   4    5
+    P3 is inserted in B4 creating new Block B8 of size (300 - 172) = 128
+    B:- 100, [317], 133, [212], 33, [172], 128, 600
+         1    2      7     3     6    4     8    5
+    P4 is inserted in B5 creating new Block B9 of size (600 - 426) = 174
+    B:- 100, [317], 133, [212], 33, [172], 128, [426], 174
+         1    2      7     3     6    4     8     5     9
+
+Worst Fit:
+    P1 is inserted in B5 creating new Block B6 of size (600 - 212) = 388
+    B:- 100, 450, 250, 300, [212], 388
+         1    2    3    4     5     6
+    P2 is inserted in B2 creating new Block B7 of size (450 - 317) = 133
+    B:- 100, [317], 133, 250, 300, [212], 388
+         1     2     7    3    4     5     6
+    P3 is inserted in B6 creating new Block B8 of size (388 - 172) = 216
+    B:- 100, [317], 133, 250, 300, [212], [172], 216
+         1     2     7    3    4     5      6     8
+    P4 can't be inserted as there is no sufficient memory block
